@@ -44,3 +44,7 @@
   padding: 6px 10px;
   border-bottom: 1px solid #515151;
 }
+.table-hover th,
+.table-hover td {
+  font-size: 25px; /* Điều chỉnh kích thước chữ */
+}

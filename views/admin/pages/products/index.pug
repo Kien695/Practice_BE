@@ -15,40 +15,47 @@ block main
                     th Hành động 
 
             tbody 
-                tr 
-                    td 1
-                    td
-                        img(
-                            src="https://www.oppo.com/content/dam/oppo/common/mkt/v2-2/oppo-a60/list-page/427-600-blue.png"
-                            alt="Sản phẩm 1"
-                            width="100px"
-                            height="auto"
-                        )
+                each item,index in products
+                    tr 
+                        td #{index+1}
+                        td
+                            img(
+                                src=item.thumbnail
+                                alt=item.title
+                                width="90px"
+                                height="auto"
+                            )
 
-                    td Sản phẩm 1
-                    td 30$
-                 
-                    td 
-                        a(
-                            href="javascript:;" 
-                            
-                            class="badge badge-success"
-                            ) Hoạt động
-                        
-                        
-                
-                    td  
-                        a(
-                        href=`javascript:;`
-                        class="btn btn-secondary btn-sm",
-                        ) Chi tiết
-                
-                        a(
-                            href=`javascript:;`
-                            class="btn btn-warning btn-sm",
-                        ) Sửa
+                        td #{item.title}
+                        td #{item.price}$
                     
-                        button(
-                            class="btn btn-danger btn-sm ml-1"
+                        td  
+                            if(item.status=="active")
+                                a(
+                                    href="javascript:;" 
+                                    
+                                    class="badge badge-success"
+                                    ) Hoạt động
+                            if(item.status=="inactive")
+                                a(
+                                    href="javascript:;" 
+                                    
+                                    class="badge badge-danger"
+                                    ) Dừng hoạt động
+                            
+                    
+                        td  
+                            a(
+                            href=`javascript:;`
+                            class="btn btn-secondary btn-sm",
+                            ) Chi tiết
+                    
+                            a(
+                                href=`javascript:;`
+                                class="btn btn-warning btn-sm",
+                            ) Sửa
                         
-                        ) Xóa
+                            button(
+                                class="btn btn-danger btn-sm ml-1"
+                            
+                            ) Xóa
