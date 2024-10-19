@@ -35,3 +35,26 @@ if (buttonDelete.length > 0) {
   });
 }
 //end delete item
+
+//restore item
+const buttonRestore = document.querySelectorAll("[button-restore]");
+
+if (buttonRestore.length > 0) {
+  const formRestoreItem = document.querySelector("#form-restore-item");
+
+  const path = formRestoreItem.getAttribute("data-path");
+  buttonRestore.forEach((button) => {
+    button.addEventListener("click", () => {
+      const isConfirm = confirm("Bạn có chắc muốn khôi phục sản phẩm này?");
+      if (isConfirm) {
+        const id = button.getAttribute("data-id");
+        console.log(id);
+        const action = `${path}/${id}?_method=PATCH`;
+
+        formRestoreItem.action = action;
+        formRestoreItem.submit();
+      }
+    });
+  });
+}
+//end restore item

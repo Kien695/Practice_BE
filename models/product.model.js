@@ -10,6 +10,7 @@ const ProductSchema = new mongoose.Schema({
   position: Number,
   deleted: Boolean,
   deletedAt: Date,
+  restoreAt: Date,
 });
 const Product = mongoose.model("Product", ProductSchema, "products");
 module.exports = Product;
