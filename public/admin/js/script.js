@@ -46,3 +46,77 @@ if (buttonPagination) {
   });
 }
 //End pagination
+
+//checkbox Multi
+const checkboxMulti = document.querySelector("[checkbox-multi]");
+if (checkboxMulti) {
+  const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']");
+
+  const inputId = checkboxMulti.querySelectorAll("input[name='id']");
+  inputCheckAll.addEventListener("click", () => {
+    if (inputCheckAll.checked) {
+      inputId.forEach((input) => {
+        input.checked = true;
+      });
+    } else {
+      inputId.forEach((input) => {
+        input.checked = false;
+      });
+    }
+  });
+
+  inputId.forEach((input) => {
+    input.addEventListener("click", () => {
+      const countChecked = checkboxMulti.querySelectorAll(
+        "input[name='id']:checked"
+      ).length;
+      console.log(countChecked);
+      if (countChecked == inputId.length) {
+        inputCheckAll.checked = true;
+      } else {
+        inputCheckAll.checked = false;
+      }
+    });
+  });
+}
+//end checkbox Multi
+
+//form change multi
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if (formChangeMulti) {
+  formChangeMulti.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const checkboxMulti = document.querySelector("[checkbox-multi]");
+    const inputChecked = checkboxMulti.querySelectorAll(
+      "input[name='id']:checked"
+    );
+    const typeChange = e.target.elements.type.value;
+    if (typeChange == "delete-all") {
+      const isConfirm = confirm("Bạn có chắc muốn xóa những sản phẩm này ?");
+      if (!isConfirm) {
+        return;
+      }
+    }
+    if (inputChecked.length > 0) {
+      let ids = [];
+      const inputIds = formChangeMulti.querySelector("input[name='ids']");
+      inputChecked.forEach((input) => {
+        const id = input.value;
+        if (typeChange == "change-position") {
+          const position = input
+            .closest("tr")
+            .querySelector("input[name='position']").value;
+
+          ids.push(`${id}-${position}`);
+        } else {
+          ids.push(id);
+        }
+      });
+      inputIds.value = ids.join(", ");
+      formChangeMulti.submit();
+    } else {
+      alert("Vui lòng chon ít nhất một bản ghi");
+    }
+  });
+}
+//end form change multi
