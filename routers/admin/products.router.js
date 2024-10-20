@@ -5,4 +5,6 @@ router.get("/", ProductsController.index);
 router.patch("/change-status/:status/:id", ProductsController.changeStatus);
 router.patch("/change-multi", ProductsController.changeMulti);
 router.patch("/delete/:id", ProductsController.deleteItem);
+router.get("/create", ProductsController.create);
+router.post("/create", ProductsController.createPost);
 module.exports = router;
