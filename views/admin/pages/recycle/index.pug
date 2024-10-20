@@ -2,7 +2,7 @@ extends ../../layouts/default
 include ../../mixins/filterStatus.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
-
+include ../../mixins/form-change-multi-2.pug
 block main 
     h1 Danh sách sản phẩm đã xóa
  
@@ -18,15 +18,17 @@ block main
     .card.mb-3
         
         .card-header Danh sách sản phẩm đã xóa
+            +form-change-multi-2(`${prefixAdmin}/recycleBins/change-multi?_method=PATCH`)
             .card-body
                 table(
                     class="table table-hover table.sm"
-                    
+                     checkbox-multi
                 )
                     thead 
                         
                         tr 
-                            
+                            th 
+                                input(type="checkbox" name="checkall")
                             th STT 
                             th Hình ảnh 
                             th Tiêu đề
@@ -38,6 +40,12 @@ block main
                     tbody 
                         each item,index in products
                             tr  
+                                td 
+                                    input(
+                                    type="checkbox"
+                                    name="id"
+                                    value=item.id
+                                    )
                                 td #{index+1}
                                 td
                                     img(

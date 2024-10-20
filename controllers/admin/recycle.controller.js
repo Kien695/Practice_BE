@@ -42,7 +42,22 @@ module.exports.index = async (req, res) => {
     pagination: objectPagination,
   });
 };
-//[restore]/admin/products/restore/:id
+//[patch]admin/recycle/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+  switch (type) {
+    case "restore-all":
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { deleted: false, deletedAt: new Date() }
+      );
+    default:
+      break;
+  }
+  res.redirect("back");
+};
+//[restore]/admin/recycle/restore/:id
 module.exports.restoreItem = async (req, res) => {
   const id = req.params.id;
   await Product.updateOne(

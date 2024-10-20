@@ -100,6 +100,18 @@ if (formChangeMulti) {
       }
     }
     //end xóa tất cả
+    //khôi phục tất cả
+    const typeChangeRes = e.target.elements.type.value;
+    console.log(typeChangeRes);
+    if (typeChangeRes == "restore-all") {
+      const isConfirm = confirm(
+        "Bạn có chắc muốn khôi phục những sản phẩm này ?"
+      );
+      if (!isConfirm) {
+        return;
+      }
+    }
+    //end khôi phục tất cả
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
