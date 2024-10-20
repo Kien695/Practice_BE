@@ -102,7 +102,7 @@ if (formChangeMulti) {
     //end xóa tất cả
     //khôi phục tất cả
     const typeChangeRes = e.target.elements.type.value;
-    console.log(typeChangeRes);
+
     if (typeChangeRes == "restore-all") {
       const isConfirm = confirm(
         "Bạn có chắc muốn khôi phục những sản phẩm này ?"
@@ -117,6 +117,7 @@ if (formChangeMulti) {
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
       inputChecked.forEach((input) => {
         const id = input.value;
+        //change-position
         if (typeChange == "change-position") {
           const position = input
             .closest("tr")
@@ -126,6 +127,7 @@ if (formChangeMulti) {
         } else {
           ids.push(id);
         }
+        //end change-position
       });
       inputIds.value = ids.join(", ");
       formChangeMulti.submit();
