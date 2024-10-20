@@ -1,6 +1,9 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
+const flash = require("express-flash");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const app = express();
 app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
@@ -15,6 +18,11 @@ database.connect();
 const port = process.env.PORT;
 app.set("views", "./views");
 app.set("view engine", "pug");
+//flash
+app.use(cookieParser("KIENNE"));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(flash());
+//end flash
 app.use(express.static("public")); //nhúng file tĩnh
 Router(app);
 RouterAdmin(app);

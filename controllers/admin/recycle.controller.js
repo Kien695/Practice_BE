@@ -52,6 +52,7 @@ module.exports.changeMulti = async (req, res) => {
         { _id: { $in: ids } },
         { deleted: false, deletedAt: new Date() }
       );
+      req.flash("success", `Khôi phục ${ids.length} sản phẩm thành công!`);
     default:
       break;
   }
@@ -67,5 +68,6 @@ module.exports.restoreItem = async (req, res) => {
       restoreAt: new Date(),
     }
   );
+  req.flash("success", "Khôi phục phẩm thành công!");
   res.redirect("back");
 };
