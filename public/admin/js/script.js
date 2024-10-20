@@ -70,7 +70,7 @@ if (checkboxMulti) {
       const countChecked = checkboxMulti.querySelectorAll(
         "input[name='id']:checked"
       ).length;
-      console.log(countChecked);
+
       if (countChecked == inputId.length) {
         inputCheckAll.checked = true;
       } else {
@@ -90,13 +90,16 @@ if (formChangeMulti) {
     const inputChecked = checkboxMulti.querySelectorAll(
       "input[name='id']:checked"
     );
+    //xóa tất cả
     const typeChange = e.target.elements.type.value;
+
     if (typeChange == "delete-all") {
       const isConfirm = confirm("Bạn có chắc muốn xóa những sản phẩm này ?");
       if (!isConfirm) {
         return;
       }
     }
+    //end xóa tất cả
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
