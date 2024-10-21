@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const multer = require("multer");
+
 const app = express();
 app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
