@@ -80,3 +80,39 @@
   border-radius: 50%;
   cursor: pointer;
 }
+/* image preview */
+.image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+.image-preview[src=""] {
+  display: none;
+}
+
+span[close-image] {
+  display: none; /* Ẩn dấu "x" mặc định */
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  padding: 1px 3px; /* Giảm khoảng cách bên trong */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px; /* Giảm kích thước font */
+  border-radius: 50%; /* Tạo hình tròn cho nút "x" */
+  width: 16px; /* Đặt chiều rộng của nút "x" */
+  height: 16px; /* Đặt chiều cao của nút "x" */
+  line-height: 14px; /* Canh giữa chữ "x" */
+  text-align: center; /* Đặt chữ "x" vào giữa */
+}
+.image-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+/* end image preview */
