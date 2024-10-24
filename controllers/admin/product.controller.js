@@ -115,7 +115,6 @@ module.exports.create = async (req, res) => {
 };
 //[post]admin/products/createPost
 module.exports.createPost = async (req, res) => {
-  console.log(req.file);
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -150,43 +149,43 @@ module.exports.edit = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/products`);
   }
 };
-// //[patch]admin/products/edit/:id
-// module.exports.editPatch = async (req, res) => {
-//   req.body.price = parseInt(req.body.price);
-//   req.body.discountPercentage = parseInt(req.body.discountPercentage);
-//   req.body.stock = parseInt(req.body.stock);
-//   req.body.position = parseInt(req.body.position);
+//[patch]admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  req.body.position = parseInt(req.body.position);
 
-//   if (req.file) {
-//     req.body.thumbnail = `upload/${req.file.filename}`;
-//   }
+  if (req.file) {
+    req.body.thumbnail = `upload/${req.file.filename}`;
+  }
 
-//   try {
-//     await Product.updateOne(
-//       {
-//         _id: req.params.id,
-//       },
-//       req.body
-//     );
-//     req.flash("success", "Cập nhật sản phẩm thành công!");
-//   } catch (error) {
-//     req.flash("error", "Cập nhật sản phẩm thất bại!");
-//   }
-//   res.redirect(`back`);
-// };
-// //[get]admin/products/detail/:id
-// module.exports.detail = async (req, res) => {
-//   try {
-//     const find = {
-//       deleted: false,
-//       _id: req.params.id,
-//     };
-//     const product = await Product.findOne(find);
-//     res.render("admin/pages/products/detail", {
-//       pageTitle: "Chi tiết sản phẩm",
-//       product: product,
-//     });
-//   } catch (error) {
-//     res.redirect(`${systemConfig.prefixAdmin}/products`);
-//   }
-// };
+  try {
+    await Product.updateOne(
+      {
+        _id: req.params.id,
+      },
+      req.body
+    );
+    req.flash("success", "Cập nhật sản phẩm thành công!");
+  } catch (error) {
+    req.flash("error", "Cập nhật sản phẩm thất bại!");
+  }
+  res.redirect(`back`);
+};
+//[get]admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id,
+    };
+    const product = await Product.findOne(find);
+    res.render("admin/pages/products/detail", {
+      pageTitle: "Chi tiết sản phẩm",
+      product: product,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+  }
+};

@@ -18,12 +18,12 @@ router.post(
   validate.createPost,
   ProductsController.createPost
 );
-// router.get("/edit/:id", ProductsController.edit);
-// router.patch(
-//   "/edit/:id",
-//   upload.single("thumbnail"),
-//   validate.createPost,
-//   ProductsController.editPatch
-// );
-// router.get("/detail/:id", ProductsController.detail);
+router.get("/edit/:id", ProductsController.edit);
+router.patch(
+  "/edit/:id",
+  upload.single("thumbnail"),
+  validate.createPost,
+  ProductsController.editPatch
+);
+router.get("/detail/:id", ProductsController.detail);
 module.exports = router;
