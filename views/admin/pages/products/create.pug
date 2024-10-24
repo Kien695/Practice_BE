@@ -64,6 +64,7 @@ block main
             class="form-group"
             upload-image
             )
+        div(class="form-group")
             label(for="thumbnail") Ảnh 
             input(
             type="file"
@@ -74,7 +75,9 @@ block main
             upload-image-input
            )
             div.image-container
-                img(src="", upload-image-preview class="image-preview")
+                img(src="", 
+                upload-image-preview 
+                class="image-preview")
                 span(close-image) x
         div(class="form-group")
             label(for="position") Vị trí 

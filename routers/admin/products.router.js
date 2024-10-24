@@ -1,8 +1,10 @@
 const express = require("express");
-const router = express.Router();
 const multer = require("multer");
+const router = express.Router();
+
 const storageMulter = require("../../helpers/storageMulter");
 const upload = multer({ storage: storageMulter() });
+
 const ProductsController = require("../../controllers/admin/product.controller");
 const validate = require("../../validates/admin/product.validate");
 router.get("/", ProductsController.index);
@@ -16,12 +18,12 @@ router.post(
   validate.createPost,
   ProductsController.createPost
 );
-router.get("/edit/:id", ProductsController.edit);
-router.patch(
-  "/edit/:id",
-  upload.single("thumbnail"),
-  validate.createPost,
-  ProductsController.editPatch
-);
-router.get("/detail/:id", ProductsController.detail);
+// router.get("/edit/:id", ProductsController.edit);
+// router.patch(
+//   "/edit/:id",
+//   upload.single("thumbnail"),
+//   validate.createPost,
+//   ProductsController.editPatch
+// );
+// router.get("/detail/:id", ProductsController.detail);
 module.exports = router;
