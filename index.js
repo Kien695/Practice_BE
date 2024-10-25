@@ -17,14 +17,14 @@ const database = require("./config/database.js");
 const systenConfig = require("./config/system.js");
 database.connect();
 const port = process.env.PORT;
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 //flash
 app.use(cookieParser("KIENNE"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //end flash
-app.use(express.static("public")); //nhúng file tĩnh
+app.use(express.static(`${__dirname}/public`)); //nhúng file tĩnh
 Router(app);
 RouterAdmin(app);
 app.locals.prefixAdmin = systenConfig.prefixAdmin;
