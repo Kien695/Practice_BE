@@ -4,14 +4,13 @@ const bodyParser = require("body-parser");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-
+require("dotenv").config();
 const app = express();
 app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 const Router = require("./routers/clients/index.router.js");
 const RouterAdmin = require("./routers/admin/index.router.js");
-require("dotenv").config();
 
 const database = require("./config/database.js");
 const systenConfig = require("./config/system.js");
