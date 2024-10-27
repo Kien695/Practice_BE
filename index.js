@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 const flash = require("express-flash");
@@ -23,6 +24,12 @@ app.use(cookieParser("KIENNE"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //end flash
+//tinyMCE
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+//end tinyMCE
 app.use(express.static(`${__dirname}/public`)); //nhúng file tĩnh
 Router(app);
 RouterAdmin(app);
