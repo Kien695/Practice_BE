@@ -72,3 +72,28 @@ module.exports.editPatch = async (req, res) => {
   );
   res.redirect("back");
 };
+//[patch]admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+  let find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+  const category = await ProductCategory.findOne(find);
+  res.render("admin/pages/products-category/detail", {
+    pageTitle: "Chi tiết danh mục sản phẩm",
+    category: category,
+  });
+};
+//[delete]/admin/products-category/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  await ProductCategory.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deletedAt: new Date(),
+    }
+  );
+  req.flash("success", "Xóa sản phẩm thành công!");
+  res.redirect("back");
+};
