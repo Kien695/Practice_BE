@@ -15,4 +15,12 @@ router.post(
   validate.createPost,
   Controller.createPost
 );
+router.get("/edit/:id", Controller.edit);
+router.patch(
+  "/edit/:id",
+  upload.single("thumbnail"),
+  uploadCloud.upload,
+  validate.createPost,
+  Controller.editPatch
+);
 module.exports = router;
