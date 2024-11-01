@@ -90,3 +90,20 @@ module.exports.editPatch = async (req, res) => {
 
   res.redirect("back");
 };
+//[get]admin/accounts/detail/:id
+module.exports.detail = async (req, res) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+
+  const detail = await Account.findOne(find).select("-password");
+  const roles = await Role.find({
+    deleted: false,
+  });
+  res.render("admin/pages/accounts/detail", {
+    pageTitle: "Trang chi tiết",
+    detail: detail,
+    roles: roles,
+  });
+};

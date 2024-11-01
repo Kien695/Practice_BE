@@ -22,4 +22,5 @@ router.patch(
   validate.editPatch,
   accountController.editPatch
 );
+router.get("/detail/:id", accountController.detail);
 module.exports = router;

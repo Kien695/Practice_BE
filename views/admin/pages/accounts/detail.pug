@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+block main 
+
+    
+    h1(class="mb-4") Chi tiết tài khoản
+    if(detail.fullName)
+        div(class="mb-4") Họ tên: <b>#{detail.fullName}</b>
+    if(detail.email)
+        div(class="mb-4") Email: <b>#{detail.email}</b>
+    if(detail.avatar)
+        div(class="mb-4") Avatar:  
+            img(
+                src=detail.avatar 
+                style="width: 100px"
+            )
+    if (detail.role_id)
+        div(class="mb-4") 
+            span Quyền: 
+                each role in roles
+                    if (role.id == detail.role_id)
+                        <b>#{role.title}</b>
+                   
+    if(detail.status)
+        div(class="mb-4")
+            span Trạng thái:  
+            if(detail.status==="active")
+                span(class="badge badge-success") Hoạt động 
+            else
+                span(class="badge badge danger") Dừng hoạt động
