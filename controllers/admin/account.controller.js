@@ -107,3 +107,17 @@ module.exports.detail = async (req, res) => {
     roles: roles,
   });
 };
+//[patch]admin/accounts/delete/:id
+module.exports.delete = async (req, res) => {
+  await Account.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      deleted: true,
+      deletedAt: new Date(),
+    }
+  );
+  req.flash("success", "Xóa tài khoản thành công!");
+  res.redirect("back");
+};

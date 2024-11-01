@@ -70,4 +70,13 @@ block main
                                 
                                 button(
                                     class="btn btn-danger btn-sm ml-1"
+                                    button-delete 
+                                    data-id=item.id
                                 ) Xóa
+        form(
+        action="", 
+        method="POST",
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/accounts/delete`
+        )  
+        script(src="/admin/js/account.js")  
