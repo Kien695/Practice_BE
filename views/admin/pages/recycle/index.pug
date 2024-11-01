@@ -5,94 +5,96 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi-2.pug
 include ../../mixins/alert.pug
 block main 
-    
-    h1 Danh sách sản phẩm đã xóa
-    +alert-success(5000)
-    .card.mb-3
-        .card-header Bộ lọc và tìm kiếm
-        .card-body
-            .row 
-                .col-6
-                    +filter-Status(filterStatus)
-                .col-6 
-                    +search(keyword) 
-                    
-    .card.mb-3
-        
-        .card-header Danh sách sản phẩm đã xóa
-            +form-change-multi-2(`${prefixAdmin}/recycleBins/change-multi?_method=PATCH`)
+    if(role.permissions.includes("recycles_view"))
+        h1 Danh sách sản phẩm đã xóa
+        +alert-success(5000)
+        .card.mb-3
+            .card-header Bộ lọc và tìm kiếm
             .card-body
-                table(
-                    class="table table-hover table.sm"
-                     checkbox-multi
-                )
-                    thead 
+                .row 
+                    .col-6
+                        +filter-Status(filterStatus)
+                    .col-6 
+                        +search(keyword) 
                         
-                        tr 
-                            th 
-                                input(type="checkbox" name="checkall")
-                            th STT 
-                            th Hình ảnh 
-                            th Tiêu đề
-                            th Giá
-                        
-                            th Trạng thái 
-                            th Hành động 
-
-                    tbody 
-                        each item,index in products
-                            tr  
-                                td 
-                                    input(
-                                    type="checkbox"
-                                    name="id"
-                                    value=item.id
-                                    )
-                                td #{index+1}
-                                td
-                                    img(
-                                        src=item.thumbnail
-                                        alt=item.title
-                                        width="90px"
-                                        height="auto"
-                                    )
-
-                                td #{item.title}
-                                td #{item.price}$
+        .card.mb-3
+            
+            .card-header Danh sách sản phẩm đã xóa
+                +form-change-multi-2(`${prefixAdmin}/recycleBins/change-multi?_method=PATCH`)
+                .card-body
+                    table(
+                        class="table table-hover table.sm"
+                        checkbox-multi
+                    )
+                        thead 
                             
-                                td  
-                                    if(item.status=="active")
-                                        a(
-                                            href="javascript:;" 
-                                            data-status=item.status
-                                            data-id=item.id
-                                            
-                                            class="badge badge-success"
-                                            ) Hoạt động
-                                    if(item.status=="inactive")
-                                        a(
-                                            href="javascript:;" 
-                                            data-status=item.status
-                                            data-id=item.id
-                                           
-                                            class="badge badge-danger"
-                                            ) Dừng hoạt động
-                                    
+                            tr 
+                                th 
+                                    input(type="checkbox" name="checkall")
+                                th STT 
+                                th Hình ảnh 
+                                th Tiêu đề
+                                th Giá
                             
-                                td  
+                                th Trạng thái 
+                                th Hành động 
+
+                        tbody 
+                            each item,index in products
+                                tr  
+                                    td 
+                                        input(
+                                        type="checkbox"
+                                        name="id"
+                                        value=item.id
+                                        )
+                                    td #{index+1}
+                                    td
+                                        img(
+                                            src=item.thumbnail
+                                            alt=item.title
+                                            width="90px"
+                                            height="auto"
+                                        )
+
+                                    td #{item.title}
+                                    td #{item.price}$
                                 
-                                    button(
-                                        class="btn btn-warning btn-sm ml-1"
-                                        button-restore
-                                        data-id=item.id
-                                    ) Khôi phục
-    +pagination(pagination) 
-    form(
-        action="", 
-        method="POST",
-        id="form-restore-item"
-        data-path=`${prefixAdmin}/recycleBins/restore`
-    ) 
-    script(src="/admin/js/product.js") 
+                                    td  
+                                        if(item.status=="active")
+                                            a(
+                                                href="javascript:;" 
+                                                data-status=item.status
+                                                data-id=item.id
+                                                
+                                                class="badge badge-success"
+                                                ) Hoạt động
+                                        if(item.status=="inactive")
+                                            a(
+                                                href="javascript:;" 
+                                                data-status=item.status
+                                                data-id=item.id
+                                            
+                                                class="badge badge-danger"
+                                                ) Dừng hoạt động
+                                        
+                                
+                                    td  
+                                        if(role.permissions.includes("recycles_restore"))
+                                            button(
+                                                class="btn btn-warning btn-sm ml-1"
+                                                button-restore
+                                                data-id=item.id
+                                            ) Khôi phục
+        +pagination(pagination) 
+        form(
+            action="", 
+            method="POST",
+            id="form-restore-item"
+            data-path=`${prefixAdmin}/recycleBins/restore`
+        ) 
+        script(src="/admin/js/product.js") 
+    else 
+        h1 Bạn không có quyền truy cập
 
     
