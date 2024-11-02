@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const moment = require("moment");
 require("dotenv").config();
 const app = express();
 app.use(methodOverride("_method"));
@@ -14,7 +15,7 @@ const Router = require("./routers/clients/index.router.js");
 const RouterAdmin = require("./routers/admin/index.router.js");
 
 const database = require("./config/database.js");
-const systenConfig = require("./config/system.js");
+const systemConfig = require("./config/system.js");
 database.connect();
 const port = process.env.PORT;
 app.set("views", `${__dirname}/views`);
@@ -33,7 +34,8 @@ app.use(
 app.use(express.static(`${__dirname}/public`)); //nhúng file tĩnh
 Router(app);
 RouterAdmin(app);
-app.locals.prefixAdmin = systenConfig.prefixAdmin;
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 app.listen(port, (req, res) => {
   console.log(`Example app listening on port ${port}`);
 });
