@@ -1,4 +1,5 @@
 const Role = require("../../models/role.model");
+const Account = require("../../models/account.model");
 const systemConfig = require("../../config/system");
 //[get]admin/role
 module.exports.index = async (req, res) => {
@@ -6,6 +7,16 @@ module.exports.index = async (req, res) => {
     deleted: false,
   };
   const records = await Role.find(find);
+  for (const item of records) {
+    const updatedBy = item.updatedBy[item.updatedBy.length - 1];
+    if (updatedBy) {
+      const user = await Account.findOne({
+        _id: updatedBy.account_id,
+      });
+
+      updatedBy.accountFullName = user.fullName;
+    }
+  }
   res.render("admin/pages/roles/index", {
     pageTitle: "Nhóm quyền",
     records: records,
@@ -48,8 +59,20 @@ module.exports.edit = async (req, res) => {
 //[patch]admin/role/edit/:id
 module.exports.editPatch = async (req, res) => {
   try {
-    const id = req.params.id;
-    await Role.updateOne({ _id: id }, req.body);
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date(),
+    };
+
+    await Role.updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        ...req.body,
+        $push: { updatedBy: updatedBy },
+      }
+    );
     req.flash("success", "Cập nhật nhóm quyền thành công!");
   } catch (error) {
     req.flash("error", "Cập nhật nhóm quyền thất bại!");
