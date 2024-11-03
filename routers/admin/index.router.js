@@ -5,6 +5,7 @@ const recycleRouter = require("./recycle.router");
 const roleRouter = require("./role.router");
 const accountRouter = require("./account.router");
 const authRouter = require("./auth.router");
+const MyAccountRouter = require("./my-account.router");
 const systemConfig = require("../../config/system");
 const authMiddleware = require("../../middlewares/admin/auth.middleware");
 module.exports = (app) => {
@@ -28,4 +29,9 @@ module.exports = (app) => {
   app.use(pathAdmin + "/roles", authMiddleware.requireAuth, roleRouter);
   app.use(pathAdmin + "/accounts", authMiddleware.requireAuth, accountRouter);
   app.use(pathAdmin + "/auth", authRouter);
+  app.use(
+    pathAdmin + "/my-account",
+    authMiddleware.requireAuth,
+    MyAccountRouter
+  );
 };
