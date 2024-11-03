@@ -1,4 +1,5 @@
 const ProductCategory = require("../../models/product-category.model");
+const Account = require("../../models/account.model");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
 //[get]admin/products-category
@@ -8,7 +9,20 @@ module.exports.index = async (req, res) => {
   };
 
   const records = await ProductCategory.find(find);
+  for (item of records) {
+    const updatedBy = item.updatedBy[item.updatedBy.length - 1];
+
+    if (updatedBy) {
+      const userUpdate = await Account.findOne({
+        _id: updatedBy.account_id,
+      });
+
+      updatedBy.accountFullName = userUpdate.fullName;
+    }
+  }
+
   const newRecords = createTreeHelper.tree(records);
+
   res.render("admin/pages/products-category/index", {
     pageTitle: "Trang danh mục sản phẩm",
     records: newRecords,
@@ -63,12 +77,18 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
   const id = req.params.id;
   req.body.position = parseInt(req.body.position);
-
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
   await ProductCategory.updateOne(
     {
       _id: id,
     },
-    req.body
+    {
+      ...req.body,
+      $push: { updatedBy: updatedBy },
+    }
   );
   res.redirect("back");
 };

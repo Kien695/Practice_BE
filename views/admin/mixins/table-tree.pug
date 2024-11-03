@@ -45,6 +45,12 @@ mixin table-tree(items,level=1)
                         class="badge badge-danger"
                         ) Dừng hoạt động
             td 
+                - const updatedBy=item.updatedBy[item.updatedBy.length - 1]
+                if(updatedBy)
+                    p #{updatedBy.accountFullName}
+                    p
+                        +formatDateTime(updatedBy.updatedAt)
+            td 
                 if(role.permissions.includes("products-category_detail"))
                     a(
                     href=`${prefixAdmin}/products-category/detail/${item.id}`

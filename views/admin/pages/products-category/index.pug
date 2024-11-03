@@ -3,6 +3,7 @@ include ../../mixins/filterStatus.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/table-tree.pug
+include ../../mixins/moment.pug
 block main 
     if(role.permissions.includes("products-category_view"))
         h1 Danh mục sản phẩm
@@ -34,6 +35,7 @@ block main
                                 th Tiêu đề
                                 th Vị trí
                                 th Trạng thái 
+                                th Người cập nhật
                                 th Hành động 
 
                         tbody 
