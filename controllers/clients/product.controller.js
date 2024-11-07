@@ -1,5 +1,7 @@
 const Product = require("../../models/product.model");
+const ProductCategory = require("../../models/product-category.model");
 const productsHelper = require("../../helpers/products");
+const ProductCategoryHelper = require("../../helpers/product-category.js");
 //[get]/products
 module.exports.index = async (req, res) => {
   const products = await Product.find({
@@ -15,7 +17,7 @@ module.exports.index = async (req, res) => {
     products: newProducts,
   });
 };
-//[get]/products
+//[get]/products/:slug
 module.exports.detail = async (req, res) => {
   try {
     const find = {
@@ -30,5 +32,34 @@ module.exports.detail = async (req, res) => {
     });
   } catch (error) {
     res.redirect(`/products`);
+  }
+};
+//[get]/products/:slugCategory
+module.exports.Category = async (req, res) => {
+  try {
+    const Category = await ProductCategory.findOne({
+      slug: req.params.slugCategory,
+      status: "active",
+      deleted: "false",
+    });
+
+    const listSubCategory = await ProductCategoryHelper.getSubCategory(
+      Category.id
+    );
+    const listSubCategoryId = listSubCategory.map((item) => item.id);
+
+    const products = await Product.find({
+      product_category_id: { $in: [Category.id, ...listSubCategoryId] },
+      deleted: "false",
+    }).sort({ position: "desc" });
+
+    const newProducts = productsHelper.priceNewProducts(products);
+    res.render("client/pages/products/index", {
+      pageTitle: Category.title,
+
+      products: newProducts,
+    });
+  } catch (error) {
+    res.redirect("/");
   }
 };
