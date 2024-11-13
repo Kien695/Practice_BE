@@ -34,6 +34,11 @@ app.use(
 app.use(express.static(`${__dirname}/public`)); //nhúng file tĩnh
 Router(app);
 RouterAdmin(app);
+app.get("*", (req, res) => {
+  res.render("client/pages/errors/404", {
+    pageTitle: "404 Not Found",
+  });
+});
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.moment = moment;
 app.listen(port, (req, res) => {
