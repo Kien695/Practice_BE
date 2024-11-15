@@ -7,7 +7,7 @@ block main
                 +box-head("Chat")
         .row 
             .col-12 
-                .chat
+                .chat(my-id=user.id)
                     .inner-body  
                         each chat in chats
                             div(class=(chat.user_id==user.id?"inner-outgoing":"inner-incoming"))
@@ -16,15 +16,15 @@ block main
                                 .inner-content 
                                     | #{chat.content} 
                    
-                    //- .inner-foot 
-                    //-     form(
-                    //-         class="inner-form"
-                    //-         action=""
-                    //-     ) 
-                    //-         input(
-                    //-             type="text"
-                    //-             placeholder="Nhập nội dung..."
-                    //-             name="content"
-                    //-         )
-                    //-         button 
-                    //-             i.fa-solid.fa-paper-plane
+                    .inner-foot 
+                        form(
+                            class="inner-form"
+                            action=""
+                        ) 
+                            input(
+                                type="text"
+                                placeholder="Nhập nội dung..."
+                                name="content"
+                            )
+                            button 
+                                i.fa-solid.fa-paper-plane

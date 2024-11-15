@@ -3,6 +3,7 @@ const User = require("../../models/user.model");
 //[get] /checkout
 module.exports.index = async (req, res) => {
   const userId = res.locals.user.id;
+  const fullName = res.locals.user.fullName;
   //socket.id
   _io.once("connection", (socket) => {
     socket.on("CLIENT_SEND_MASSAGE", async (content) => {
@@ -12,6 +13,12 @@ module.exports.index = async (req, res) => {
         content: content,
       });
       await chat.save();
+      //trả data về client
+      _io.emit("SEVER_RETURN_MASSAGE", {
+        userId: userId,
+        fullName: fullName,
+        content: content,
+      });
     });
   });
   //lấy data ra giao diện
