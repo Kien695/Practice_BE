@@ -295,3 +295,13 @@
 .chat .inner-form button i {
   font-size: 16px;
 }
+/* end chat */
+
+/* emoji */
+.tooltip {
+  visibility: hidden;
+}
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
