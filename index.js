@@ -6,6 +6,9 @@ const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const moment = require("moment");
+const http = require("http");
+const { Server } = require("socket.io");
+
 require("dotenv").config();
 const app = express();
 app.use(methodOverride("_method"));
@@ -25,6 +28,14 @@ app.use(cookieParser("KIENNE"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //end flash
+//socket.io
+
+const server = http.createServer(app);
+const io = new Server(server);
+io.on("connection", (socket) => {
+  console.log("a user connected", socket.id);
+});
+//end socket.io
 //tinyMCE
 app.use(
   "/tinymce",
@@ -41,6 +52,6 @@ app.get("*", (req, res) => {
 });
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.moment = moment;
-app.listen(port, (req, res) => {
+server.listen(port, (req, res) => {
   console.log(`Example app listening on port ${port}`);
 });
