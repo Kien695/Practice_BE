@@ -207,11 +207,11 @@
 
 /* Tổng thể chat container */
 .chat {
-  max-width: 400px;
-  margin: auto;
-  background: #f8f8f8;
-  border-radius: 10px;
-  padding: 10px;
+  max-width: 400px; /* Giới hạn chiều rộng tối đa là 400px */
+  margin: auto; /* Căn giữa phần tử */
+  background: #f8f8f8; /* Màu nền xám nhạt */
+  border-radius: 10px; /* Bo góc */
+  padding: 10px; /* Khoảng cách giữa nội dung và viền */
 }
 
 /* Vùng nội dung tin nhắn */
@@ -295,6 +295,40 @@
 .chat .inner-form button i {
   font-size: 16px;
 }
+.chat .inner-body .inner-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: #efefef;
+  padding: 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 5px;
+}
+.chat .inner-body .inner-outgoing .inner-images {
+  margin-left: auto;
+  text-align: right;
+}
+.chat .inner-body .inner-outgoing .inner-images img {
+  margin: 0 0 5px 5px;
+}
+.chat .inner-preview-images {
+  position: relative;
+}
+.chat .inner-preview-images .label-container {
+  display: none;
+}
+.chat .inner-preview-images .input-container {
+  display: none;
+}
+.chat .inner-preview-images .image-preview {
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+}
+.chat .inner-preview-images .image-preview-item {
+  width: 90px;
+  background-size: contain;
+}
 /* end chat */
 
 /* emoji */
@@ -348,4 +382,5 @@
     opacity: 0.1;
   }
 }
+
 /* end box-typing */

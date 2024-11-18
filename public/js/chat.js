@@ -1,13 +1,35 @@
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
+//-file-upload-with-preview
+let upload;
+import { FileUploadWithPreview } from "https://unpkg.com/file-upload-with-preview/dist/index.js";
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    upload = new FileUploadWithPreview("upload-image", {
+      multiple: true,
+      maxFileCount: 10,
+    });
+  } catch (error) {
+    console.error("Error initializing FileUploadWithPreview:", error);
+  }
+});
+
+//-end file-upload-with-preview
 //CLIENT_SEND_MASSAGE
 const formSendData = document.querySelector(".chat .inner-form");
 if (formSendData) {
   formSendData.addEventListener("submit", (e) => {
     e.preventDefault();
     const content = e.target.elements.content.value;
-    if (content) {
-      socket.emit("CLIENT_SEND_MASSAGE", content);
+
+    const images = upload.cachedFileArray;
+
+    if (content || images.length > 0) {
+      socket.emit("CLIENT_SEND_MASSAGE", {
+        content: content,
+        images: images,
+      });
       e.target.elements.content.value = "";
+      upload.resetPreviewPanel(); // clear all selected images
       socket.emit("CLIENT_SEND_TYPING", "hidden");
     }
   });
@@ -21,15 +43,29 @@ socket.on("SEVER_RETURN_MASSAGE", (data) => {
   const boxTyping = document.querySelector(".chat .inner-list-typing");
   const div = document.createElement("div");
   let htmlFullName = "";
+  let htmlContent = "";
+  let htmlImages = "";
   if (myId == data.userId) {
     div.classList.add("inner-outgoing");
   } else {
     htmlFullName = `<div class="inner-name">${data.fullName}</div>`;
     div.classList.add("inner-incoming");
   }
+  if (data.content) {
+    htmlContent = `<div class ="inner-content">${data.content}</div>`;
+  }
+  if (data.images.length > 0) {
+    htmlImages += `<div class ="inner-image">`;
+    for (const image of data.images) {
+      htmlImages += `<img src="${image}">`;
+    }
+    htmlImages += `</div`;
+  }
   div.innerHTML = `
   ${htmlFullName}
-  <div class ="inner-content">${data.content}</div>
+  ${htmlContent}
+  ${htmlImages}
+  
   `;
   body.insertBefore(div, boxTyping);
   // Tự động cuộn xuống cuối
