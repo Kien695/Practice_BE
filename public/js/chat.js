@@ -70,6 +70,8 @@ socket.on("SEVER_RETURN_MASSAGE", (data) => {
   body.insertBefore(div, boxTyping);
   // Tự động cuộn xuống cuối
   body.scrollTop = body.scrollHeight;
+  //preview full image
+  const gallery = new Viewer(div);
 });
 //END SEVER_RETURN_MASSAGE
 
@@ -154,3 +156,10 @@ if (elementListTyping) {
 }
 
 //END SEVER_RETURN_TYPING
+
+//preview full image
+const bodyPreviewFullImage = document.querySelector(".chat .inner-body");
+if (bodyPreviewFullImage) {
+  const gallery = new Viewer(bodyPreviewFullImage);
+}
+//end preview full image
