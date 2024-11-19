@@ -16,6 +16,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "active",
     },
+    requestFriends: Array,
+    acceptFriends: Array,
+    FriendList: [
+      {
+        user_id: String,
+      },
+    ],
     deleted: {
       type: Boolean,
       default: false,
