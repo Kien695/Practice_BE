@@ -77,6 +77,15 @@ module.exports = (res) => {
           }
         );
       }
+      //lấy ra độ dài acceptFriends của B và trả về cho B
+      const infoUserB = await User.findOne({
+        _id: userId,
+      });
+      const lengthAcceptFriends = infoUserB.acceptFriends.length;
+      socket.broadcast.emit("SEVER_RETURN_LENGTH_ACCEPT_FRIEND", {
+        userId: userId,
+        lengthAcceptFriends: lengthAcceptFriends,
+      });
     });
     //chức năng từ chối kết bạn
     socket.on("CLIENT_REFUSE_FRIEND", async (userId) => {
