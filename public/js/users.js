@@ -75,10 +75,11 @@ if (badgeUserAccept) {
 //end SEVER_RETURN_LENGTH_ACCEPT_FRIEND
 
 //SEVER_RETURN_INFO_ACCEPT_FRIEND
-const dataUserAccept = document.querySelector("[data-users-accept]");
-if (dataUserAccept) {
-  const userId = dataUserAccept.getAttribute("data-users-accept");
-  socket.on("SEVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+socket.on("SEVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+  // Trang lời mời đã nhận
+  const dataUserAccept = document.querySelector("[data-users-accept]");
+  if (dataUserAccept) {
+    const userId = dataUserAccept.getAttribute("data-users-accept");
     if (userId === data.userId) {
       //vẽ user ra giao diện
       const div = document.createElement("div");
@@ -137,8 +138,22 @@ if (dataUserAccept) {
       acceptFriend(buttonAccept);
       //end chấp nhận lời mời
     }
-  });
-}
+  }
+  // Trang danh sách người dùng
+  const dataUserNotFriend = document.querySelector("[data-users-not-friend]");
+  if (dataUserNotFriend) {
+    const userId = dataUserNotFriend.getAttribute("data-users-not-friend");
+    if (userId === data.userId) {
+      const boxUserRemove = dataUserNotFriend.querySelector(
+        `[user-id='${data.infoUserA._id}']`
+      );
+      if (boxUserRemove) {
+        dataUserNotFriend.removeChild(boxUserRemove);
+      }
+    }
+  }
+});
+
 //end SEVER_RETURN_INFO_ACCEPT_FRIEND
 
 //SEVER_RETURN_USERID_CANCEL_FRIEND
