@@ -4,4 +4,5 @@ const usersController = require("../../controllers/clients/users.controller");
 router.get("/not-friend", usersController.notFriend);
 router.get("/request", usersController.request);
 router.get("/accept", usersController.accept);
+router.get("/friends", usersController.friends);
 module.exports = router;
