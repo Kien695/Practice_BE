@@ -169,3 +169,15 @@ socket.on("SEVER_RETURN_USERID_CANCEL_FRIEND", (data) => {
 });
 
 //END SEVER_RETURN_USERID_CANCEL_FRIEND
+
+//SERVER_RETURN_USER_STATUS_ONLINE
+socket.on("SERVER_RETURN_USER_STATUS_ONLINE", (data) => {
+  const dataUserFriend = document.querySelector("[data-users-friend]");
+  if (dataUserFriend) {
+    const boxUser = dataUserFriend.querySelector(`[user-id='${data.userId}']`);
+    if (boxUser) {
+      boxUser.querySelector("[status]").setAttribute("status", data.status);
+    }
+  }
+});
+//end SERVER_RETURN_USER_STATUS_ONLINE
