@@ -94,6 +94,11 @@ module.exports = (res) => {
         userId: userId,
         lengthAcceptFriends: lengthAcceptFriends,
       });
+      //lấy Id của A trả về cho B
+      socket.broadcast.emit("SEVER_RETURN_USERID_CANCEL_FRIEND", {
+        userIdB: userId,
+        userIdA: myUserId,
+      });
     });
     //chức năng từ chối kết bạn
     socket.on("CLIENT_REFUSE_FRIEND", async (userId) => {

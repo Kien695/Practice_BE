@@ -83,6 +83,7 @@ if (dataUserAccept) {
       //vẽ user ra giao diện
       const div = document.createElement("div");
       div.classList.add("col-6");
+      div.setAttribute("user-id", data.infoUserA._id);
       div.innerHTML = `
       <div class="box-user ">
         <div class="inner-avatar">
@@ -139,3 +140,17 @@ if (dataUserAccept) {
   });
 }
 //end SEVER_RETURN_INFO_ACCEPT_FRIEND
+
+//SEVER_RETURN_USERID_CANCEL_FRIEND
+socket.on("SEVER_RETURN_USERID_CANCEL_FRIEND", (data) => {
+  const boxUserRemove = document.querySelector(`[user-id='${data.userIdA}']`);
+  if (boxUserRemove) {
+    const dataUserAccept = document.querySelector("[data-users-accept]");
+    const userIdB = badgeUserAccept.getAttribute("badge-users-accept");
+    if (userIdB === data.userIdB) {
+      dataUserAccept.removeChild(boxUserRemove);
+    }
+  }
+});
+
+//END SEVER_RETURN_USERID_CANCEL_FRIEND
