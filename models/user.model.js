@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
     FriendList: [
       {
         user_id: String,
+        room_chat_id: String,
       },
     ],
     statusOnline: String,
